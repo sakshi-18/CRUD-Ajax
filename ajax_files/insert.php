@@ -11,7 +11,8 @@ else{
         $email = $_POST['email'];
         $phone = $_POST['phone'];
         $password = $_POST['password'];
-        $role = 'C';
+	$role = 'A';
+	$hashedPassword = hash('sha256',$password);
 
 	//User Validation
                   $flag = 1;
@@ -33,7 +34,7 @@ else{
 	          }
                   else{
 
-	             $userInsertSql = "insert into form(name,email,phone,password,role) values('$name','$email','$phone','$password','$role')";
+	             $userInsertSql = "insert into form(name,email,phone,password,role) values('$name','$email','$phone','$hashedPassword','$role')";
 		     try{  
                       $userInsertResult = $conn->query($userInsertSql);
 		      echo " Data inserted";

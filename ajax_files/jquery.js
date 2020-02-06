@@ -1,5 +1,4 @@
  $(document).ready(function(){
-	         var data1;
 	         $("#myform1").hide();
 		 $("#myform2").hide();
 		 $("#home").hide();
@@ -103,20 +102,23 @@
 			         	},
 				      success:function(data){
 					      //alert("success");
+					     
+                                              
 					      if(data){
+						      console.log(data);
 						      alert("login successfully");
-						      data1 = JSON.parse(data);
-						      console.log(data1);
+						      var resultArray = JSON.parse(data);
+						      console.log(resultArray);
 						       $("#myform1").hide();
 						       $("#myform2").hide();
 						       $("#register").hide();
 						       $("#login").hide();
 
-						       for(var i=0;i<data1.length;i++){
-							       var id = data1[i]['id'];
-							       var name = data1[i]['name'];
-                                                               var email = data1[i]['email'];
-                                                               var phone = data1[i]['phone'];
+						       for(var i=0;i<resultArray.length;i++){
+							       var id = resultArray[i]['id'];
+							       var name = resultArray[i]['name'];
+                                                               var email = resultArray[i]['email'];
+                                                               var phone = resultArray[i]['phone'];
 
 							       $('#table').append(
 								       '<tr>'+
