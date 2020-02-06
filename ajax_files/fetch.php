@@ -3,55 +3,44 @@
 include "ajax_config.php";
 
 error_reporting(E_ALL);
-if(isset($_REQUEST)){
+if(!isset($_REQUEST)){
+	return;
+}
+else{
+
 	$php_obj = json_decode($_POST['user_string']);
-//	var_dump($_POST['user_string']);
-	$email= $php_obj->email;
+        $email = $php_obj->email;
 	$password = $php_obj->password;
 
-	$sql = "select password,role from form where email='$email'";
-	$result = $conn->query($sql);
-	$row = $result->fetch_assoc();
-
+	$userValidationQuery = "select * from form where email='$email' AND password='$password'";
+	try{
+        	$userValidationResult = $conn->query($userValidationQuery);
+	        $user = $userValidationResult->fetch_assoc();
+        }
+	catch(Exception $exception){
+		echo "query failer";
+	}
 	$result_array = array();
-//	$result_obj = (object)[];
-	if($row['password']==$password){ 
-	//	echo 1 ;
-                if($row['role']=='A'){
-             	      $sql_admin = "select * from form";
-		      $result1 = $conn->query($sql_admin);
-		      //$row1 = $result1->fetch_assoc();
-		      //$obj = json_encode($row1);
-                      if(mysqli_num_rows($result1) > 0){
-			      while($row1 = mysqli_fetch_assoc($result1)) {
-				      array_push($result_array,$row1);
+                if($user['role']=='A'){
+             	      $allDataSql = "select * from form";
+		      $allDataResult = $conn->query($allDataSql);
+		       if(mysqli_num_rows($allDataResult) > 0){
+			      while($user = mysqli_fetch_assoc($allDataResult)) {
+				      $result_array[] = $user;			     
 			      }
-		      }
-
-
-		      echo(json_encode($result_array));
-		     
+		      }		     
 
          	}
 
 	        else{ 
-		      $sql_client = "select * from form where email='$email'";
-        	      $result2 = $conn->query($sql_client);
-		      //$row1 = $result2->fetch_assoc();
-		        if(mysqli_num_rows($result2) > 0){
-			      while($row1 = mysqli_fetch_assoc($result2)) {
-				      array_push($result_array,$row1);
-			      }
-		      }
+     
+		     $result_array = [$user];
+
+		}
+	       echo(json_encode($result_array));
 
 
-		      echo(json_encode($result_array));
-         	}
-
-	}
-	else{
-	//	echo 0;
-	}
 }
+
 
 ?>

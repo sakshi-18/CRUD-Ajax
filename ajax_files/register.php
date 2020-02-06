@@ -14,124 +14,7 @@
                 color:white;
            }
 	</style>
-<script src="jquery.js">   
-/*
-            $(document).ready(function(){
-	         var data1;
-	         $("#myform1").hide();
-		 $("#myform2").hide();
-		 $("#home").hide();
-		 $("#logout").hide();
-		 $("#register").on('click',function(){
-	             $("#myform2").hide();
-                     $("#myform1").show();
-	               $("#submit").on('click' , function() {
-			  var name = $('#name').val();
-			  var email = $('#email').val();
-			  var phone = $('#phone').val();
-			  var password = $('#password').val();
-			 // var role = 'C';
-			  $.ajax({
-			     type:'POST',
-	                     url: 'insert.php',
-			     data:{
-			            name:name,
-				    email:email,
-				    phone:phone,
-				    password:password,
-				   // role:role
-			  },
-			     success: function(data){
-				     alert(data);
-				     document.getElementById('name').value="";
-				     document.getElementById('email').value="";
-				     document.getElementById('phone').value="";
-				     document.getElementById('password').value="";
-				     } 
-
-			  });
-		      });
-	           });
-
-		 $("#login").on('click',function(){
-                        $("#myform1").hide();
-			$("#myform2").show();
-				$("#loginPage").on('click',function(){
-				var email = $('#login_email').val();
-				var password = $('#login_password').val();
-				var user_json = {
-			                	email :email,
-						password :password
-				};
-				var user_string = JSON.stringify(user_json);
-				$.ajax({
-				      type :'POST',
-		                      url :'fetch.php', 
-				      //dataType: 'json',
-				      //contentType: 'application/json',
-		                      
-				      data : {
-				      user_string :user_string
-			         	},
-				      success:function(data){
-					      //alert("success");
-					      if(data){
-						      alert("login successfully");
-						      data1 = JSON.parse(data);
-						      console.log(data1);
-						       $("#myform1").hide();
-						       $("#myform2").hide();
-						       $("#register").hide();
-						       $("#login").hide();
-
-						       for(var i=0;i < data1.length;i++){
-							       var id = data1[i]['id'];
-							       var name = data1[i]['name'];
-                                                               var email = data1[i]['email'];
-                                                               var phone = data1[i]['phone'];
-
-							       $('#table').append(
-								       '<tr>'+
-								       '<td>'+id+'</td>'+
-								       '<td>'+name+'</td>'+
-								       '<td>'+email+'</td>'+
-								       '<td>'+phone+'</td>'+
-                                                                       '<td>'+'<button class="btn btn-success" id="edit">Edit</button>' + '</td>'+
-		                                                       '<td>' + '<button class="btn btn-danger" id="delete">Delete</button>' + '</td>' +
-								       '</tr>'
-							       );
-
-							       $('td').css('color','white');
-							     //  $('#table').find('button').addClass("btn btn-success");
-						       }
-                                                       $("#logout").show();
-					               $("#home").show();
-					      }
-					      else{
-						       alert("Invalid email/password");
-						       $("#myform1").hide();
-					               $("#myform2").show();
-						       $("#home").hide();
-					      }
-
-					      
-				      }
-				});
-			})
-
-
-		 });
-
-	  });
-*/ 
-
-	</script>
- 
-	   
-
-                    
-
-               
+<script src="jquery.js"> </script>
 
 </head>
  
@@ -148,23 +31,26 @@
 	<form  method='post' id='myform1' class="container">
               <h1>Register</h1>
              <div class="form-group">
-           	<input type='text' class="form-control" id='name' placeholder='Enter name' />
+		<input type='text' class="form-control" id='name' placeholder='Enter name' />
+                <p id="name_alert"></p>
              </div>
  
 	     <div class="form-group">
 	       <input type='email' class="form-control" id='email' placeholder='Enter email' />
+                <p id="email_alert"></p>
 	     </div>
 
 	     <div class="form-group">
-               <input type="text" class="form-control" id="phone" placeholder="Enter phone"/>
+	       <input type="text" class="form-control" id="phone" placeholder="Enter phone"/>
+                <p id="phone_alert"></p>
 	     </div>
 
              <div class="form-group">
-               <input type="password" class="form-control" id="password" placeholder="Enter password"/>
+	       <input type="password" class="form-control" id="password" placeholder="Enter password"/>
+                <p id="password_alert"></p>
 	     </div>
        
              <button id='submit' type="button"  class="btn btn-primary" >Submit</button>
-	     <p id='result'></p>
 	</form>
         </div>
         <form  method='post' id='myform2' class="container" style="margin-top:20px">
@@ -172,9 +58,11 @@
                
              <div class="form-group">
 	       <input type='email' class="form-control" id='login_email' placeholder='Enter email' />
+               <p id="emailLogin_alert"></p>
 	     </div>
-              <div class="form-group">
-               <input type="password" class="form-control" id="login_password" placeholder="Enter password"/>
+             <div class="form-group">
+	       <input type="password" class="form-control" id="login_password" placeholder="Enter password"/>
+                <p id="passwordLogin_alert"></p>
 	     </div>
               <button id='loginPage' type="button"  class="btn btn-primary" >Login</button>
 
